@@ -1,39 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-           
-    <h1>Clone de Keep</h1>
-    <h2>{{greeting | lower }}</h2>
-
-  
-   
-    {% for user in users  %}
-    {% if user.edad > 20  %}
-        <h3>Mayores de 20 años</h3>
-        <ul>
-        
-            <li>{{user.nombre}}</li>
-            <li>{{user.apellidos}}</li>
-            <li>{{user.edad}}</li>
-            <li>{{user.escolaridad|default:"No tiene escolaridad" |capfirst }}</li>
-        </ul>
-    {% else %}
-    <h3>Menores de 20 años</h3>
-        <ul>
-        
-            <li>{{user.nombre}}</li>
-            <li>{{user.apellidos}}</li>
-            <li>{{user.edad}}</li>
-            <li>{{user.escolaridad|default:"No tiene escolaridad" |capfirst }}</li>
-        </ul>
-    {%   %}
-    {% endfor %}
-
-</body>
-</html>
+       
+ {% extends "base.html" %} 
+   {% block title %} Index {% endblock%}
+    
+    {% block content %}
+        {% for user in users  %}
+        {% if user.edad > 20  %}
+            <h3>Mayores de 20 años</h3>
+            <ul>
+            
+                <li>{{user.nombre}}</li>
+                <li>{{user.apellidos}}</li>
+                <li>{{user.edad}}</li>
+                <li>{{user.escolaridad|default:"No tiene escolaridad" |capfirst }}</li>
+            </ul>
+        {% else %}
+        <h3>Menores de 20 años</h3>
+            <ul>
+            
+                <li>{{user.nombre}}</li>
+                <li>{{user.apellidos}}</li>
+                <li>{{user.edad}}</li>
+                <li>{{user.escolaridad|default:"No tiene escolaridad" |capfirst }}</li>
+            </ul>
+        {% endif  %}
+        {% endfor %}
+    {% endblock %}

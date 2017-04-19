@@ -16,3 +16,5 @@ def index(request):
         "users":usuarios
         
         })
+def agregar(request):
+    return render(request,"landing/agregar.html")
