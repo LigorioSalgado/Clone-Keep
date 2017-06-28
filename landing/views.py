@@ -1,20 +1,50 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+from django.http import Http404
+from .models import Remainder
 # Create your views here.
 
 
 def index(request):
-    saludo = "Hola me llamo Edwin!"
-    usuarios = [
-        {"nombre":"Edwin","edad":23,"apellidos":"Salgado"},
-        {"nombre":"Alfonso","edad":19,"apellidos":"Torres","escolaridad":"licenciatura"},
-        {"nombre":"Luis","edad":27,"apellidos":"Perez"},
+    #Queryset 
+    # SELEC * FROM Remainder
+    remainders = Remainder.objects.all()
+    print(remainders)
+    return render(request,"landing/index.html",{"recordatorios":remainders})
 
-    ]
-    return render(request,"landing/index.html",{
-        "greeting":saludo,
-        "users":usuarios
-        
-        })
 def agregar(request):
-    return render(request,"landing/agregar.html")
+    
+    if request.method == 'POST':
+        remainder = Remainder()
+        remainder.titulo = request.POST['titulo']
+        remainder.descripcion = request.POST['descripcion']
+        remainder.prioridad = request.POST['prioridad']
+        remainder.save()
+        return redirect('landing:index')
+    
+    else:
+        return render(request,"landing/agregar.html")
+
+def detalle(request,pk):
+    
+    try:
+        #SELECT * FROM Remainder WHERE id = pk
+        remainder = Remainder.objects.get(id=pk)
+    except:
+        raise Http404
+    
+    return render(request,'landing/detalle.html',
+    {"recordatorio":remainder})
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

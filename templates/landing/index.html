@@ -3,29 +3,27 @@
    {% block title %} Index {% endblock%}
     
     {% block content %}
-        {% for user in users  %}
-        {% if user.edad > 20  %}
-            <h3>Mayores de 20 años</h3>
-            <ul>
+        
+        <div class="row">
+        {%for recordatorio in recordatorios %}
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">{{recordatorio.titulo}}</span>
+              <p>{{recordatorio.descripcion}}</p>
+             </div>
+            <div class="card-action">
+              <a href="{% url 'landing:detalle' recordatorio.id %}">Detalle</a>
+            </div>
+          </div>
+        </div>
+             
             
-                <li>{{user.nombre}}</li>
-                <li>{{user.apellidos}}</li>
-                <li>{{user.edad}}</li>
-                <li>{{user.escolaridad|default:"No tiene escolaridad" |capfirst }}</li>
-            </ul>
-        {% else %}
-        <h3>Menores de 20 años</h3>
-            <ul>
-            
-                <li>{{user.nombre}}</li>
-                <li>{{user.apellidos}}</li>
-                <li>{{user.edad}}</li>
-                <li>{{user.escolaridad|default:"No tiene escolaridad" |capfirst }}</li>
-            </ul>
-        {% endif  %}
-        {% endfor %}
+
+
+        {%endfor%}
+        </div>
+
+
     {% endblock %}
 
-{% block js%}
-    
-{%endblock %}
